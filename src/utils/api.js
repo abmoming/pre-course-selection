@@ -106,9 +106,15 @@ export const getRequest = (url, params) => {
 };
 
 export const deleteRequest = (url, params) => {
-    return axios({
+     return axios({
         method: 'delete',
         url: `${base}${url}`,
         data: params
     });
 };
+
+export const allRequest = (req1, req2) => {
+    return axios.all([req1, req2]);
+};
+
+

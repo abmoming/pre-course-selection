@@ -3,53 +3,42 @@
         <el-container>
             <el-header class="homeHeader">
                 <div class="title">选课系统</div>
-                <!--<div>
-                    &lt;!&ndash;<el-button type="text" icon="el-icon-bell" style="margin-right: 8px; color: #000000;" size="normal"
-                               @click="goChat"></el-button>&ndash;&gt;
-                    <el-dropdown class="userInfo" @command="commandHandler">
-                    <span class="el-dropdown-link">
-                        {{user.name}}<i><img :src="user.userface"/></i>
-                    </span>
-                        <el-dropdown-menu slot="dropdown">
-                            <el-dropdown-item command="userinfo">个人中心</el-dropdown-item>
-                            <el-dropdown-item command="setting">设置</el-dropdown-item>
-                            <el-dropdown-item divided command="logout">注销登录</el-dropdown-item>
-                        </el-dropdown-menu>
-                    </el-dropdown>
-                </div>-->
+                <el-button type="primary"  @click="logOut">注销</el-button>
             </el-header>
             <el-container>
                 <el-aside width="200px">
                     <el-menu router>
                         <!--通过角色给出不同的左侧菜单-->
                         <template v-if="user.roleName == 'ROLE_admin'">
-                            <!--<el-submenu index="1">
-                                <template slot="title">
-                                    <span>课程资料管理</span>
-                                </template>
-                                <el-menu-item index="1-1">课程录入</el-menu-item>
-                            </el-submenu>-->
-                            <el-menu-item index="/operate/Courses">课程资料管理</el-menu-item>
-                            <el-menu-item index="2">教师资料管理</el-menu-item>
-                            <el-menu-item index="3">学生资料管理</el-menu-item>
+                            <el-submenu index="1">
+                                <template slot="title">管理员模块</template>
+                                <el-menu-item index="/operator/courses">课程资料管理</el-menu-item>
+                                <el-menu-item index="/operator/teachers">教师资料管理</el-menu-item>
+                                <el-menu-item index="/operator/students">学生资料管理</el-menu-item>
+                            </el-submenu>
                         </template>
                         <template v-if="user.roleName == 'ROLE_teacher'">
-                            <el-menu-item index="2">课程资料管理</el-menu-item>
-                            <el-menu-item index="3">学生资料管理</el-menu-item>
+                            <el-submenu index="1">
+                                <template slot="title">教师模块</template>
+                                <el-menu-item index="/teacher/courses">课程查询</el-menu-item>
+                                <el-menu-item index="/teacher/students">学生查询</el-menu-item>
+                            </el-submenu>
                         </template>
                         <template v-if="user.roleName == 'ROLE_student'">
-                            <el-menu-item index="3">学生资料管理</el-menu-item>
+                            <el-submenu index="1">
+                                <template slot="title">学生模块</template>
+                                <el-menu-item index="/student/courses">课程查询</el-menu-item>
+                                <el-menu-item index="/student/myCourses">我的课程</el-menu-item>
+                            </el-submenu>
                         </template>
                     </el-menu>
                 </el-aside>
                 <el-main>
-                    <h3>内容</h3>
-                    <!--<el-breadcrumb separator-class="el-icon-arrow-right" v-if="this.$router.currentRoute.path!='/home'">
+                    <el-breadcrumb separator-class="el-icon-arrow-right" v-if="this.$router.currentRoute.path!='/home'">
                         <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
                         <el-breadcrumb-item>{{this.$router.currentRoute.name}}</el-breadcrumb-item>
                     </el-breadcrumb>
-                    <div v-if="this.$router.currentRoute.path=='/home'" class="homeWelcome">欢迎来到微人事!</div>
-                    <router-view class="homeRouterView"/>-->
+                    <router-view class="homeRouterView"/>
                 </el-main>
             </el-container>
         </el-container>
@@ -64,6 +53,16 @@
             return {
                 // 获取临时保存的用户数据是字符串类型的，需要转换为JSON对象
                 user: JSON.parse(window.sessionStorage.getItem("user")),
+            }
+        },
+        methods: {
+            logOut() {
+                window.sessionStorage.removeItem("user");
+                this.$router.replace('/');
+                this.$message({
+                    type: 'success',
+                    message: '注销成功'
+                });
             }
         }
     }
