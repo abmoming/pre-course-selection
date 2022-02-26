@@ -10,7 +10,7 @@
         <el-table stripe
                   border
                   max-height="600"
-                  style="width: 70%"
+                  style="width: 90%"
                   :data="tableData">
             <el-table-column
                     prop="name"
@@ -23,13 +23,13 @@
                     width="300">
             </el-table-column>
             <el-table-column
-                    prop="classStartTime"
+                    prop="time"
                     label="上课时间"
                     width="200">
             </el-table-column>
             <el-table-column
-                    prop="classEndTime"
-                    label="下课时间"
+                    prop="weekContent"
+                    label="每周几(18周结束)"
                     width="200">
             </el-table-column>
             <el-table-column
@@ -42,7 +42,7 @@
                     label="课程状态"
                     width="150">
             </el-table-column>
-            <el-table-column fixed="right" label="操作" width="180">
+            <el-table-column fixed="right" label="操作">
                 <template slot-scope="scope">
                     <el-button
                             size="mini"

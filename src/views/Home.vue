@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div style="background-color: rgba(255,0,255,0.5)">
         <el-container>
             <el-header class="homeHeader">
                 <div class="title">选课系统</div>

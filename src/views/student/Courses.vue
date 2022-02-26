@@ -10,7 +10,7 @@
         <el-table stripe
                   border
                   max-height="600"
-                  style="width: 70%"
+
                   :data="tableData">
             <el-table-column
                     prop="name"
@@ -23,13 +23,13 @@
                     width="300">
             </el-table-column>
             <el-table-column
-                    prop="classStartTime"
+                    prop="time"
                     label="上课时间"
                     width="200">
             </el-table-column>
             <el-table-column
-                    prop="classEndTime"
-                    label="下课时间"
+                    prop="weekContent"
+                    label="每周几(18周结束)"
                     width="200">
             </el-table-column>
             <el-table-column
@@ -38,17 +38,29 @@
                     width="150">
             </el-table-column>
             <el-table-column
+                    prop="selectCourseNumbers"
+                    label="已选课程人数"
+                    width="150">
+            </el-table-column>
+            <el-table-column
                     prop="statusCn"
                     label="课程状态"
                     width="150">
             </el-table-column>
-            <el-table-column fixed="right" label="操作" width="100">
+            <el-table-column fixed="right" label="操作">
                 <template slot-scope="scope">
                     <el-button
                             :disabled="scope.row.isDisabled"
                             size="mini"
                             @click="handleSelectCourse(scope.$index, scope.row)"
                     >{{scope.row.isDisabled ? '已选课': '选课'}}
+                    </el-button>
+
+                    <el-button
+                            :disabled="!scope.row.isDisabled"
+                            size="mini"
+                            @click="handleCancelSelectCourse(scope.$index, scope.row)"
+                    >取消选择
                     </el-button>
                 </template>
             </el-table-column>
@@ -113,7 +125,23 @@
                 }
             },
             handleSelectCourse(index, rowData) {
-                this.postRequest('/course/select_course', {userId: this.user.id, couId: rowData.id}).then(resp => {
+                if (rowData.selectCourseNumbers <= rowData.numPeople) {
+                    this.postRequest('/course/select_course', {userId: this.user.id, couId: rowData.id}).then(resp => {
+                        if(resp){
+                            this.initData();
+                        }
+                    });
+                } else {
+                    this.$message({
+                        type: 'warning',
+                        message: '当前选课人数已满!'
+                    });
+                }
+
+            },
+            handleCancelSelectCourse(index, rowData) {
+                let url = `/course/cancel_select_course?userId=${this.user.id}&couId=${rowData.id}`;
+                this.deleteRequest(url).then(resp => {
                     if(resp){
                         this.initData();
                     }

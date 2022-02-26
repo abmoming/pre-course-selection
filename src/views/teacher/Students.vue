@@ -1,7 +1,8 @@
 <template>
     <div>
         <div style="margin: 10px 0px;">
-            <el-input v-model="search.studentName" clearable autocomplete="off"/>
+            <el-input v-model="search.studentName" placeholder="输入学生名称..." clearable autocomplete="off" style="width: 260px;margin-right: 10px;"/>
+            <el-input v-model="search.couName" placeholder="输入课程名称..." clearable autocomplete="off" style="width: 260px;margin-right: 10px;"/>
             <el-button
                     size="mini"
                     @click="handleSearch">搜索
@@ -10,12 +11,15 @@
         <el-table stripe
                   border
                   max-height="600"
-                  style="width: 50%"
+                  style="width: 90%"
                   :data="tableData">
             <el-table-column
                     prop="username"
-                    label="学生名称"
-                    width="260">
+                    label="学生名称">
+            </el-table-column>
+            <el-table-column
+                    prop="name"
+                    label="课程名称">
             </el-table-column>
         </el-table>
     </div>
@@ -28,7 +32,8 @@
             return {
                 tableData: [],
                 search: {
-                    studentName: ''
+                    studentName: '',
+                    couName: ''
                 },
                 formLabelWidth: '120px'
             }
@@ -40,15 +45,15 @@
             /**
              * 初始化所有教师
              */
-            initStudents(studentName) {
+            initStudents(studentName, couName) {
                 let params = {};
-                if (studentName) {
-                    params = {roleName: "ROLE_student", username: studentName};
+                if (studentName || couName) {
+                    params = {roleName: "ROLE_student", username: studentName, couName: couName};
                 } else {
                     params = {roleName: "ROLE_student"};
                 }
 
-                this.getRequest('/user/query', params).then(resp => {
+                this.getRequest('/user/query2', params).then(resp => {
                     if (resp) {
                         this.tableData = resp.data;
                         this.search.studentName = '';
@@ -59,7 +64,7 @@
              * 搜索
              */
             handleSearch() {
-                this.initStudents(this.search.studentName);
+                this.initStudents(this.search.studentName, this.search.couName);
             }
         }
     }
