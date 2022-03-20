@@ -44,7 +44,7 @@
         data() {
             return {
                 ruleForm: {
-                    username: '111',
+                    username: 'admin',
                     password: '123'
                 },
                 checked: true,

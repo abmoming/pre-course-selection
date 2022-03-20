@@ -10,12 +10,19 @@
         <el-table stripe
                   border
                   max-height="600"
-                  style="width: 50%"
+                  style="width: 100%"
                   :data="tableData">
             <el-table-column
+                    prop="userCode"
+                    label="学号">
+            </el-table-column>
+            <el-table-column
+                    prop="classes"
+                    label="班级名称">
+            </el-table-column>
+            <el-table-column
                     prop="username"
-                    label="学生名称"
-                    width="260">
+                    label="学生名称">
             </el-table-column>
             <el-table-column label="操作">
                 <template slot-scope="scope">
@@ -34,6 +41,12 @@
 
         <el-dialog title="添加学生" :visible.sync="dialogFormVisible">
             <el-form :model="student">
+                <el-form-item label="学号" :label-width="formLabelWidth">
+                    <el-input v-model="student.userCode" clearable autocomplete="off"/>
+                </el-form-item>
+                <el-form-item label="班级" :label-width="formLabelWidth">
+                    <el-input v-model="student.classes" clearable autocomplete="off"/>
+                </el-form-item>
                 <el-form-item label="学生名称" :label-width="formLabelWidth">
                     <el-input v-model="student.username" clearable autocomplete="off"/>
                 </el-form-item>
@@ -56,6 +69,8 @@
                 student: {
                     id: '',
                     username: '',
+                    userCode: '',
+                    classes: '',
                     roleName: 'ROLE_student',
                     creator: ''
                 },
@@ -125,6 +140,8 @@
                 this.student = {
                     id: '',
                     username: '',
+                    userCode: '',
+                    classes: '',
                     roleName: 'ROLE_student',
                     creator: ''
                 };

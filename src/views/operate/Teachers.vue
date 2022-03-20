@@ -10,12 +10,15 @@
         <el-table stripe
                   border
                   max-height="600"
-                  style="width: 50%"
+                  style="width: 100%"
                   :data="tableData">
             <el-table-column
+                    prop="userCode"
+                    label="教师工号">
+            </el-table-column>
+            <el-table-column
                     prop="username"
-                    label="教师名称"
-                    width="260">
+                    label="教师名称">
             </el-table-column>
             <el-table-column label="操作">
                 <template slot-scope="scope">
@@ -34,6 +37,9 @@
 
         <el-dialog title="添加任课老师" :visible.sync="dialogFormVisible">
             <el-form :model="teacher">
+                <el-form-item label="教师工号" :label-width="formLabelWidth">
+                    <el-input v-model="teacher.userCode" clearable autocomplete="off"/>
+                </el-form-item>
                 <el-form-item label="教师名称" :label-width="formLabelWidth">
                     <el-input v-model="teacher.username" clearable autocomplete="off"/>
                 </el-form-item>
@@ -56,6 +62,7 @@
                 teacher: {
                     id: '',
                     username: '',
+                    userCode: '',
                     roleName: 'ROLE_teacher',
                     creator: ''
                 },
@@ -125,6 +132,7 @@
                 this.teacher = {
                     id: '',
                     username: '',
+                    userCode: '',
                     roleName: 'ROLE_teacher',
                     creator: ''
                 };

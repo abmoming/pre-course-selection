@@ -10,37 +10,35 @@
         <el-table stripe
                   border
                   max-height="600"
-                  style="width: 90%"
+                  style="width: 100%"
                   :data="tableData">
             <el-table-column
                     prop="name"
-                    label="课程名称"
-                    width="200">
+                    label="课程名称">
             </el-table-column>
             <el-table-column
                     prop="classAddress"
-                    label="上课地址"
-                    width="300">
+                    label="上课地址">
             </el-table-column>
             <el-table-column
                     prop="time"
-                    label="上课时间"
-                    width="200">
+                    label="上课时间">
             </el-table-column>
             <el-table-column
                     prop="weekContent"
-                    label="每周几(18周结束)"
-                    width="200">
+                    label="每周几(18周结束)">
+            </el-table-column>
+            <el-table-column
+                    prop="username"
+                    label="教师名称">
             </el-table-column>
             <el-table-column
                     prop="numPeople"
-                    label="课程人数"
-                    width="150">
+                    label="课程人数">
             </el-table-column>
             <el-table-column
                     prop="statusCn"
-                    label="课程状态"
-                    width="150">
+                    label="课程状态">
             </el-table-column>
             <el-table-column fixed="right" label="操作">
                 <template slot-scope="scope">
