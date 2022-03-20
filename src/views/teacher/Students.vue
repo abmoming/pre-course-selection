@@ -14,6 +14,14 @@
                   style="width: 90%"
                   :data="tableData">
             <el-table-column
+                    prop="userCode"
+                    label="学号">
+            </el-table-column>
+            <el-table-column
+                    prop="classes"
+                    label="班级">
+            </el-table-column>
+            <el-table-column
                     prop="username"
                     label="学生名称">
             </el-table-column>
